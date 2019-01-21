@@ -1,4 +1,4 @@
-# wedding
+#:checkered_flag:  wedding
 
 > A Mpvue project
 
