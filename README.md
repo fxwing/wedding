@@ -4,9 +4,9 @@
 
 ## Build Setup
 
-## :fire: 不要直接跑本项目，需要开通云开发，需要建立集合，上手前记得先熟悉云开发文档
-## 结合mpvue vuex 小程序云开发一起使用
-
+## :fire: 不要直接跑本项目，需要开通云开发，需要建立集合，上手前先熟悉云开发文档
+## :boom: 结合 mpvue vuex 小程序云开发 stylus 一起使用
+## :building_construction: 结合用到了客服的插件记得授权才能在微信中实时收到消息
 ``` bash
 # install dependencies
 npm install
