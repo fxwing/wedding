@@ -19,8 +19,9 @@
             <p class="place-end"></p>
         </scroll-view>
         <div class="bottom">
-            <button class="left" lang="zh_CN" open-type="getUserInfo" @getuserinfo="toMessage">说点啥吧</button>
-            <button class="right" @tap="toForm">我要出席</button> 
+            <div class="bottom-message" v-if="messageList.length>0">已经收到 {{messageList.length}} 条评论祝福</div>
+            <button class="left" lang="zh_CN" open-type="getUserInfo" @getuserinfo="toMessage">来点祝福吧</button>
+            <!-- <button class="right" @tap="toForm">我要出席</button>  -->
         </div>
         <div class="dialog" v-show="isOpen">
             <textarea focus="true" maxlength="80" class="desc" placeholder="在这里输入您想要说的话" name="textarea" placeholder-style="color:#ccc;" v-model="desc"/>
@@ -32,9 +33,9 @@
         <div class="video-dialog" @tap="toVideo">
             <image src="../../static/images/video1.png"/>
         </div>
-        <div class="form-dialog" @tap="lookList">
+        <!-- <div class="form-dialog" @tap="lookList">
             <image src="../../static/images/form.png"/>
-        </div>
+        </div> -->
         <div class="video" v-show="isVideo">
             <h-video @closeVideo="closeVideo"></h-video>
         </div>
@@ -156,12 +157,16 @@ export default {
     },
 
     getMessageList () {
+      wx.showLoading({
+        title: '祝福传递中...'
+      })
       const that = this
       wx.cloud.callFunction({
         name: 'messageList',
         data: {}
       }).then(res => {
         that.messageList = res.result.data.reverse()
+        wx.hideLoading()
       })
     },
 
@@ -257,7 +262,7 @@ export default {
         .place
             height 20rpx
         .place-end
-            height 160rpx
+            height 200rpx
         .item
             width 630rpx
             margin-left 30rpx
@@ -288,6 +293,10 @@ export default {
                     align-items center
                     .top-l
                         height 50rpx
+                        max-width 250rpx
+                        overflow hidden
+                        text-overflow ellipsis
+                        white-space nowrap
                         line-height 50rpx
                         color #444
                         font-size 28rpx
@@ -302,16 +311,23 @@ export default {
                     font-size 28rpx
                     white-space pre-wrap
                     width 100%
+                    word-wrap break-word
+                    text-align justify
     .bottom
         position fixed
         bottom 0
         left 0
-        height 160rpx
+        height 200rpx
         background rgba(255, 255, 255, 0.75)
         width 100%
         display flex
         justify-content center
         align-items center
+        flex-direction column
+        .bottom-message
+            margin-bottom 20rpx
+            font-size 30rpx
+            color #ed695d
         .left, .right
             height 80rpx
             line-height 80rpx
@@ -319,7 +335,6 @@ export default {
             width 300rpx
             color #fff
             background #ED695D
-            margin 0 20rpx 0 0
         .right
             margin 0
     .dialog

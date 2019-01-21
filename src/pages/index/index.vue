@@ -14,11 +14,11 @@
         </div>
         <div class="info" :animation="animationData">
             <div class="content">
-                <h1>Mr.黄 & Miss.梅</h1>
-                <p>谨定于 2019年2月2日 （星期六）中午12:00</p>
-                <p>农历 腊月二十八 中午十二点整 举办婚礼</p>
-                <p>席设：黄梅县天下禅大酒店锦园三厅</p>
-                <p>地址：黄冈市黄梅县黄梅大道777号</p>
+                <!-- <h1>Mr.冯 & Miss.董</h1>
+                <p>谨定于 2019年3月4日 （星期一）中午12:00</p>
+                <p>农历 正月二十八 中午十二点整 举办婚礼</p>
+                <p>席设：邢台市南和县南和宾馆</p> -->
+                <p>地址：邢台南和县和阳大街</p>
                 <image src="../../static/images/we.png" class="img_footer"/>
             </div>
         </div>
@@ -28,7 +28,8 @@
 <script>
 import IndexSwiper from 'components/indexSwiper'
 import tools from 'common/js/h_tools'
-const audioCtx = wx.createInnerAudioContext()
+import { mapState } from 'vuex'
+// const audioCtx = wx.createInnerAudioContext()
 export default {
   name: 'Index',
   components: {
@@ -37,7 +38,8 @@ export default {
   data () {
     return {
       isPlay: true,
-      list: []
+      list: [],
+      imgUrl: ''
     }
   },
   onShow () {
@@ -45,19 +47,47 @@ export default {
     that.isPlay = true
     that.getMusicUrl()
   },
-
+  computed: {
+    ...mapState(['audio'])
+  },
   methods: {
     audioPlay () {
       const that = this
       if (that.isPlay) {
-        audioCtx.pause()
+        that.audio.pause()
         that.isPlay = false
         tools.showToast('您已暂停音乐播放~')
       } else {
-        audioCtx.play()
+        that.audio.play()
         that.isPlay = true
         tools.showToast('背景音乐已开启~')
       }
+    },
+
+    // 版本对比  兼容
+    compareVersion (v1, v2) {
+      v1 = v1.split('.')
+      v2 = v2.split('.')
+      const len = Math.max(v1.length, v2.length)
+
+      while (v1.length < len) {
+        v1.push('0')
+      }
+      while (v2.length < len) {
+        v2.push('0')
+      }
+
+      for (let i = 0; i < len; i++) {
+        const num1 = parseInt(v1[i])
+        const num2 = parseInt(v2[i])
+
+        if (num1 > num2) {
+          return 1
+        } else if (num1 < num2) {
+          return -1
+        }
+      }
+      return 0
     },
 
     getList () {
@@ -66,27 +96,40 @@ export default {
       const banner = db.collection('banner')
       banner.get().then(res => {
         that.list = res.data[0].bannerList
+        wx.hideLoading()
       })
     },
 
     getMusicUrl () {
-      const that = this
-      const db = wx.cloud.database()
-      const music = db.collection('music')
-      music.get().then(res => {
-        let musicUrl = res.data[0].musicUrl
-        audioCtx.src = musicUrl
-        audioCtx.loop = true
-        audioCtx.autoplay = true
-        audioCtx.play()
-        that.getList()
+      wx.showLoading({
+        title: '奋力加载中...'
       })
+      const that = this
+      const version = wx.getSystemInfoSync().SDKVersion
+      if (that.compareVersion(version, '2.3.0') >= 0) {
+        wx.setInnerAudioOption({
+          obeyMuteSwitch: false
+        })
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '当前微信版本过低，静音模式下可能会导致播放音频失败。'
+        })
+      }
+      that.getList()
     }
   },
-
-  onShareAppMessage: function (res) {
+  onShareAppMessage (res) {
+    const that = this
+    const db = wx.cloud.database()
+    const shareImg = db.collection('shareImg')
+    shareImg.get().then(res => {
+      that.imgUrl = res.data[0].img
+    })
     return {
-      path: '/pages/index/main'
+      title: '恭候您的光临',
+      path: '/pages/index/main',
+      imageUrl: '../../static/images/3.jpg'
     }
   }
 }
@@ -163,7 +206,7 @@ export default {
     bottom 40rpx
     left 50rpx
     padding 10rpx
-    animation infoAnimation 12s linear infinite
+    animation infoAnimation 6s linear infinite
     .content
       width 626rpx
       border 1rpx solid #000

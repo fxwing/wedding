@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import App from './App'
+import store from './store'
 
 Vue.config.productionTip = false
 App.mpType = 'app'
-
+Vue.prototype.$store = store
 wx.cloud.init({
-  env: '云开发环境ID'
+  env: 'test-fxwing'
 })
 
 const app = new Vue(App)

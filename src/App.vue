@@ -37,6 +37,21 @@ export default {
         content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
       })
     }
+  },
+  onShow () {
+    const that = this
+    const audioCtx = wx.createInnerAudioContext()
+    const db = wx.cloud.database()
+    const music = db.collection('music')
+    music.get().then(res => {
+      let num = parseInt(Math.random() * 2, 10)
+      let musicUrl = res.data[0].musicUrl[num]
+      audioCtx.src = musicUrl
+      audioCtx.loop = true
+      audioCtx.autoplay = true
+      audioCtx.play()
+    })
+    that.$store.commit('audio', audioCtx)
   }
 }
 </script>

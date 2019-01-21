@@ -10,7 +10,7 @@
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
-	"appid": "小程序appID",
+	"appid": "wxddfaf48bf59e4d31",
 	"projectname": "photo",
 	"cloudfunctionRoot": "static/functions/",
 	"condition": {
@@ -22,13 +22,23 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": -1,
+					"name": "好友祝福",
+					"pathName": "pages/greet/main"
+				}
+			]
 		}
 	}
 }

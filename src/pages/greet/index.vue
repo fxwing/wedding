@@ -1,5 +1,12 @@
 <template>
     <div class="greet">
+        <div class="mask" v-if="showMask" @tap="share"></div>
+        <div class="mask-content"  v-if="showMask" :class="{active:isActive}">
+          <div class="mask-share">
+             <button  class="mask-share_btn" open-type="share">发送给朋友</button>
+          </div>
+          <div class="mask-poster">生成海报</div>
+        </div>
         <image class="head" src="../../static/images/heart-animation.gif"/>
         <scroll-view
             scroll-y
@@ -13,7 +20,8 @@
         <p class="count">已收到{{userList.length}}位好友送来的祝福</p>
         <div class="bottom">
             <button class="left" lang="zh_CN" open-type="getUserInfo" @getuserinfo="sendGreet">送上祝福</button>
-            <button class="right" open-type="share">分享喜悦</button> 
+            <button class="right" open-type="share">分享喜悦</button>
+             <!-- <button class="right" @tap="share">分享喜悦</button> -->
         </div>
     </div>
 </template>
@@ -26,7 +34,9 @@ export default {
     return {
       userList: [],
       openId: '',
-      userInfo: ''
+      userInfo: '',
+      showMask: false,
+      isActive: false
     }
   },
   onShow () {
@@ -35,6 +45,7 @@ export default {
   },
   methods: {
     sendGreet (e) {
+      console.log(e)
       const that = this
       if (e.target.errMsg === 'getUserInfo:ok') {
         wx.getUserInfo({
@@ -86,22 +97,65 @@ export default {
     },
 
     getUserList () {
+      wx.showLoading({
+        title: '祝福传递中...'
+      })
       const that = this
       wx.cloud.callFunction({
         name: 'userList',
         data: {}
       }).then(res => {
         that.userList = res.result.data.reverse()
+        wx.hideLoading()
       })
+    },
+
+    share () {
+      this.showMask = !this.showMask
+      this.isActive = !this.isActive
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+button::after
+    border none
+input
+    outline:none;
+    border:none;
+    list-style: none;
 .greet
     width 100%
     height 100%
+    .mask
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+        background rgba(0,0,0,.6)
+        transition all .3s
+        z-index 99999
+    .mask-content
+        position fixed
+        width 100%
+        left 0
+        height 300rpx
+        bottom -300rpx
+        transition all 0.3s ease-in-out
+        background #ffffff
+        z-index 100000
+        display flex
+        align-items center
+        flex-direction column
+        padidng 20rpx 0;
+        .mask-share
+            height 50rpx
+            line-height 50rpx
+            font-size 28rpx
+    .active
+        transform translate3d(0,-300rpx,0)
     .head
         height 150rpx
         width 200rpx

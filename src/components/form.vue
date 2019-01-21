@@ -11,6 +11,9 @@
         <input type="number" placeholder="请填写有效的手机号码" v-model="phone" @input="checkPhone" maxlength="11">
         <p class="title">
             几人出席
+
+
+            
         </p>
         <radio-group @change="radioChange" class="group">
             <label class="radio" v-for="(item, index) in list" :key="index">

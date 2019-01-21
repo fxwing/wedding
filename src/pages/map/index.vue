@@ -1,9 +1,18 @@
 <template>
     <div class="map">
         <image mode="aspectFit" class="head-img" src="../../static/images/t1.png"/>
-        <map class="content" id="map" longitude="115.93027" latitude="30.08059" :markers="markers" scale="18" @tap="toNav">
+        <map class="content" id="map" longitude="114.690590" latitude="37.005380" :markers="markers" scale="18" @tap="toNav">
         </map>
         <div class="call">
+            <div class="left">
+                  <button
+                    class="online-seek"
+                    :session-from="sobot|userInfo.nickName|userInfo.avatarUrl"
+                    open-type="contact">
+                    <image src="../../static/images/he.png"/>
+                    <div>联系新郎</div>
+                  </button>
+            </div>
             <div class="left" @tap="linkHe">
                 <image src="../../static/images/he.png"/>
                 <span>呼叫新郎</span>
@@ -13,6 +22,7 @@
                 <span>呼叫新娘</span>
             </div>
         </div>
+
         <image class="footer" src="../../static/images/grren-flower-line.png"/>
     </div>
 </template>
@@ -24,11 +34,12 @@ export default {
   data () {
     return {
       // qqSdk: '',
+      // 37.005380,114.690590
       markers: [{
         iconPath: '../../static/images/nav.png',
         id: 0,
-        latitude: 30.08059,
-        longitude: 115.93027,
+        latitude: 37.005380,
+        longitude: 114.690590,
         width: 50,
         height: 50
       }]
@@ -38,21 +49,21 @@ export default {
   methods: {
     toNav () {
       wx.openLocation({
-        latitude: 30.08059,
-        longitude: 115.93027,
+        latitude: 114.697284,
+        longitude: 37.011046,
         scale: 18
       })
     },
 
     linkHe () {
       wx.makePhoneCall({
-        phoneNumber: '18358274764'
+        phoneNumber: '17611169059'
       })
     },
 
     linkShe () {
       wx.makePhoneCall({
-        phoneNumber: '17855847639'
+        phoneNumber: '18713570873'
       })
     }
   }
@@ -88,11 +99,18 @@ export default {
         image
           height 64rpx
           width 64rpx
+          margin 0 auto
         span
           height 50rpx
           line-height 50rpx
           font-size 24rpx
           color #6B4F4E
+        button::after
+          border none
+        button
+          background #ffffff
+          color #6B4F4E
+          font-size 24rpx
     .footer
       height 80rpx
       width 716rpx

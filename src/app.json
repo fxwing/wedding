@@ -22,7 +22,7 @@
           "pagePath": "pages/index/main",
           "iconPath": "static/images/1-1.png",
           "selectedIconPath": "static/images/1-2.png",
-          "text": "邀请函"
+          "text": "恭候光临"
       },
       {
           "pagePath": "pages/photo/main",
