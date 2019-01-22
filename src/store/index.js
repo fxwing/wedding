@@ -5,7 +5,8 @@ import getters from './getters'
 Vue.use(Vuex)
 const state = {
   audio: '',
-  isPlay: true
+  isPlay: true,
+  userInfo: ''
 }
 export default new Vuex.Store({
   state,

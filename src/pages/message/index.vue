@@ -15,6 +15,11 @@
                     </div>
                     <p class="con">{{item.desc}}</p>
                 </div>
+                <image
+                  v-if="item._openid===openId"
+                  class="del"
+                  @tap="removeMessage(item)"
+                  src="../../static/images/close.png"></image>
             </div>
             <p class="place-end"></p>
         </scroll-view>
@@ -79,6 +84,7 @@ export default {
     that.isForm = false
     that.isFormlist = false
     that.getMessageList()
+    that.getOpenId()
   },
 
   methods: {
@@ -99,6 +105,31 @@ export default {
     cancel () {
       const that = this
       that.isOpen = false
+    },
+
+    removeMessage (item) {
+      const that = this
+      const db = wx.cloud.database()
+      const message = db.collection('message')
+      wx.showModal({
+        title: '温馨提示',
+        content: '确定要删除吗？',
+        success: function (sm) {
+          if (sm.confirm) {
+            message.doc(item._id).remove({
+              success (res) {
+                that.getMessageList()
+                console.log(res.data)
+              },
+              fail (res) {
+                console.log(res)
+              }
+            })
+          } else if (sm.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
     },
 
     sendMessage () {
@@ -165,7 +196,7 @@ export default {
         name: 'messageList',
         data: {}
       }).then(res => {
-        that.messageList = res.result.data.reverse()
+        that.messageList = [...res.result.data.reverse()]
         wx.hideLoading()
       })
     },
@@ -273,10 +304,17 @@ export default {
             align-items flex-start
             padding 30rpx
             margin-bottom 20rpx
+            position relative
             .left
                 width 100rpx
                 height 100rpx
                 border-radius 50rpx
+            .del
+                position absolute
+                width 30rpx
+                height 30rpx
+                bottom 10rpx
+                right 20rpx
             .right
                 display flex
                 flex-direction column
