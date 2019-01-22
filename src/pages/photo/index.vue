@@ -14,7 +14,7 @@ export default {
   },
   onShow () {
     const that = this
-    that.isGif = !that.isGif
+    that.isGif = true
     that.getList()
   },
 

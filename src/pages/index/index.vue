@@ -28,7 +28,7 @@
 <script>
 import IndexSwiper from 'components/indexSwiper'
 import tools from 'common/js/h_tools'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 // const audioCtx = wx.createInnerAudioContext()
 export default {
   name: 'Index',
@@ -37,7 +37,6 @@ export default {
   },
   data () {
     return {
-      isPlay: true,
       list: [],
       imgUrl: ''
     }
@@ -48,18 +47,19 @@ export default {
     that.getMusicUrl()
   },
   computed: {
-    ...mapState(['audio'])
+    ...mapState(['audio', 'isPlay'])
   },
   methods: {
+    ...mapMutations(['bindIsPlay']),
     audioPlay () {
       const that = this
       if (that.isPlay) {
         that.audio.pause()
-        that.isPlay = false
+        that.bindIsPlay(false)
         tools.showToast('您已暂停音乐播放~')
       } else {
         that.audio.play()
-        that.isPlay = true
+        that.bindIsPlay(true)
         tools.showToast('背景音乐已开启~')
       }
     },

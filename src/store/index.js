@@ -4,7 +4,8 @@ import mutations from './mutations'
 import getters from './getters'
 Vue.use(Vuex)
 const state = {
-  audio: ''
+  audio: '',
+  isPlay: true
 }
 export default new Vuex.Store({
   state,
