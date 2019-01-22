@@ -17,6 +17,7 @@
                 <p>{{item.user.nickName}}</p>
             </div>
         </scroll-view>
+        <image class="footer" src="../../static/images/green-flower.png"/>
         <p class="count">已收到{{userList.length}}位好友送来的祝福</p>
         <div class="bottom">
             <button class="left" lang="zh_CN" open-type="getUserInfo" @getuserinfo="sendGreet">送上祝福</button>
@@ -228,4 +229,8 @@ input
         color #444
         text-align center
         width 100%
+    .footer
+        width 70%
+        height 200rpx
+        margin-left 15%
 </style>

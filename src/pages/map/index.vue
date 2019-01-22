@@ -22,7 +22,6 @@
                 <span>呼叫新娘</span>
             </div>
         </div>
-
         <image class="footer" src="../../static/images/grren-flower-line.png"/>
     </div>
 </template>
