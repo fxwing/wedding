@@ -84,7 +84,8 @@ export default {
     that.isForm = false
     that.isFormlist = false
     that.getMessageList()
-    that.getOpenId()
+    // that.getOpenId()
+    that.getOpenId(false)
   },
 
   methods: {
@@ -96,7 +97,7 @@ export default {
           success: function (res) {
             that.userInfo = res.userInfo
             that.isOpen = true
-            that.getOpenId()
+            that.getOpenId(true)
           }
         })
       }
@@ -224,14 +225,14 @@ export default {
       })
     },
 
-    getOpenId () {
+    getOpenId (bool) {
       const that = this
       wx.cloud.callFunction({
         name: 'user',
         data: {}
       }).then(res => {
         that.openId = res.result.openid
-        that.getIsExist()
+        bool && that.getIsExist()
       })
     },
 
