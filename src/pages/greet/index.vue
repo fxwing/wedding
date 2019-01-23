@@ -133,6 +133,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@-webkit-keyframes infoAnimation
+  0%
+    -webkit-transform scale(1)
+  50%
+    -webkit-transform scale(.9)
+  100%
+    -webkit-transform scale(1)
 button::after
     border none
 input
@@ -246,4 +253,5 @@ input
         width 70%
         height 200rpx
         margin-left 15%
+        animation infoAnimation 6s linear infinite
 </style>

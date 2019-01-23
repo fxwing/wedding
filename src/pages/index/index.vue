@@ -14,10 +14,10 @@
         </div>
         <div class="info" :animation="animationData">
             <div class="content">
-                <h1>Mr.冯 & Miss.董</h1>
+                <!-- <h1>Mr.冯 & Miss.董</h1>
                 <p>谨定于 2019年3月4日 （星期一）中午12:00</p>
                 <p>农历 正月二十八 中午十二点整 举办婚礼</p>
-                <p>席设：邢台市南和县南和宾馆</p>
+                <p>席设：邢台市南和县南和宾馆</p> -->
                 <p>地址：邢台南和县和阳大街</p>
                 <image src="../../static/images/we.png" class="img_footer"/>
             </div>
@@ -157,6 +157,15 @@ export default {
   50%
     -webkit-transform scale(.9) translate(5px, 5px)
   100%
+    -webkit-transform scale(1) translate(0, 0px)
+@-webkit-keyframes invAnimation
+  0%
+    -webkit-transform scale(1) translate(0, 0)
+  25%
+    -webkit-transform scale(.9) translate(5px, 5px)
+  75%
+    -webkit-transform scale(1.2) translate(2.5px, 2.5px)
+  100%
     -webkit-transform scale(1) translate(0, 0)
 .index
   height 100%
@@ -174,6 +183,7 @@ export default {
     width 572rpx
     height 69rpx
     z-index 9
+    animation infoAnimation 6s linear infinite
   .bg_music
     position fixed
     right 0

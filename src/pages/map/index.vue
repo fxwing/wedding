@@ -86,6 +86,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@-webkit-keyframes infoAnimation
+  0%
+    -webkit-transform scale(1)
+  50%
+    -webkit-transform scale(.9)
+  100%
+    -webkit-transform scale(1)
 .map
     height 100%
     background #fff
@@ -93,6 +100,7 @@ export default {
       width 100%
       height 180rpx
       margin-bottom 50rpx
+      animation infoAnimation 6s linear infinite
     .content
       width 690rpx
       margin-left 30rpx
@@ -131,13 +139,15 @@ export default {
       width 716rpx
       margin-left 17rpx
     .copyright
-      display flex
       margin-top 20rpx
+      width 100%
+      display flex
       flex-direction column
       align-items center
+      justify-content center
       div
-        height 50rpx
-        line-height 50rpx
-        font-size 24rpx
+        height 30rpx
+        line-height 30rpx
+        font-size 20rpx
         color #6B4F4E
 </style>
