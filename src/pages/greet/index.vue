@@ -44,6 +44,19 @@ export default {
     const that = this
     that.getUserList()
   },
+  onShareAppMessage (res) {
+    // const that = this
+    // const db = wx.cloud.database()
+    // const shareImg = db.collection('shareImg')
+    // shareImg.get().then(res => {
+    //   that.imgUrl = res.data[0].img
+    // })
+    return {
+      title: '恭候您的光临',
+      path: '/pages/index/main',
+      imageUrl: '../../static/images/share.jpg'
+    }
+  },
   methods: {
     sendGreet (e) {
       console.log(e)

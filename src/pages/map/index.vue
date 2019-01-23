@@ -23,6 +23,10 @@
             </div>
         </div>
         <image class="footer" src="../../static/images/grren-flower-line.png"/>
+        <div class="copyright">
+          <div>made with 💗 by fengxiongwei</div>
+          <div>© copyright 2019</div>
+        </div>
     </div>
 </template>
 
@@ -44,7 +48,19 @@ export default {
       }]
     }
   },
-
+  onShareAppMessage (res) {
+    // const that = this
+    // const db = wx.cloud.database()
+    // const shareImg = db.collection('shareImg')
+    // shareImg.get().then(res => {
+    //   that.imgUrl = res.data[0].img
+    // })
+    return {
+      title: '恭候您的光临',
+      path: '/pages/index/main',
+      imageUrl: '../../static/images/share.jpg'
+    }
+  },
   methods: {
     toNav () {
       wx.openLocation({
@@ -114,4 +130,14 @@ export default {
       height 80rpx
       width 716rpx
       margin-left 17rpx
+    .copyright
+      display flex
+      margin-top 20rpx
+      flex-direction column
+      align-items center
+      div
+        height 50rpx
+        line-height 50rpx
+        font-size 24rpx
+        color #6B4F4E
 </style>

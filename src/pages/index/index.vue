@@ -14,10 +14,10 @@
         </div>
         <div class="info" :animation="animationData">
             <div class="content">
-                <!-- <h1>Mr.冯 & Miss.董</h1>
+                <h1>Mr.冯 & Miss.董</h1>
                 <p>谨定于 2019年3月4日 （星期一）中午12:00</p>
                 <p>农历 正月二十八 中午十二点整 举办婚礼</p>
-                <p>席设：邢台市南和县南和宾馆</p> -->
+                <p>席设：邢台市南和县南和宾馆</p>
                 <p>地址：邢台南和县和阳大街</p>
                 <image src="../../static/images/we.png" class="img_footer"/>
             </div>
@@ -120,16 +120,16 @@ export default {
     }
   },
   onShareAppMessage (res) {
-    const that = this
-    const db = wx.cloud.database()
-    const shareImg = db.collection('shareImg')
-    shareImg.get().then(res => {
-      that.imgUrl = res.data[0].img
-    })
+    // const that = this
+    // const db = wx.cloud.database()
+    // const shareImg = db.collection('shareImg')
+    // shareImg.get().then(res => {
+    //   that.imgUrl = res.data[0].img
+    // })
     return {
       title: '恭候您的光临',
       path: '/pages/index/main',
-      imageUrl: '../../static/images/3.jpg'
+      imageUrl: '../../static/images/share.jpg'
     }
   }
 }
