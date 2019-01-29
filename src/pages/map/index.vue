@@ -86,13 +86,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@-webkit-keyframes infoAnimation
-  0%
-    -webkit-transform scale(1)
-  50%
-    -webkit-transform scale(.9)
-  100%
-    -webkit-transform scale(1)
+
+
+
 .map
     height 100%
     background #fff

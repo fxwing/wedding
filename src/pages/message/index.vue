@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="video-dialog" @tap="toVideo">
-            <image src="../../static/images/video1.png"/>
+            <image src="../../static/images/timg.jpg"/>
         </div>
         <!-- <div class="form-dialog" @tap="lookList">
             <image src="../../static/images/form.png"/>
@@ -58,6 +58,7 @@ import HVideo from 'components/video'
 import HForm from 'components/form'
 import HFormlist from 'components/formlist'
 import tools from 'common/js/h_tools'
+import { mapState } from 'vuex'
 export default {
   name: 'Message',
   components: {
@@ -99,6 +100,9 @@ export default {
       path: '/pages/index/main',
       imageUrl: '../../static/images/share.jpg'
     }
+  },
+  computed: {
+    ...mapState(['audio'])
   },
   methods: {
     toMessage (e) {
@@ -263,14 +267,15 @@ export default {
 
     toVideo () {
       const that = this
+      that.audio.pause() // 停止音乐
       that.isVideo = true
     },
 
     closeVideo () {
       const that = this
+      that.audio.play() // 开启音乐
       that.isVideo = false
     },
-
     lookList () {
       const that = this
       that.isFormlist = true
@@ -296,6 +301,11 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+@-webkit-keyframes rotate
+  from
+    -webkit-transform:rotate(0deg)
+  to
+    -webkit-transform:rotate(360deg)
 .message
     height 100%
     width 100%
@@ -425,13 +435,14 @@ export default {
                 flex 1
     .video-dialog
         position fixed
-        right 10rpx
+        right 20rpx
         top 200rpx
         width 100rpx
         height 100rpx
         box-shadow 0 0 10rpx rgba(0, 0, 0, 0.1)
         background #fff
         border-radius 16rpx
+        animation: 9.5s linear 0s normal none infinite rotate;
         image
             width 100%
             height 100%

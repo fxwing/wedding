@@ -14,10 +14,10 @@
         </div>
         <div class="info" :animation="animationData">
             <div class="content">
-                <!-- <h1>Mr.冯 & Miss.董</h1>
+                <h1>Mr.冯 & Miss.董</h1>
                 <p>谨定于 2019年3月4日 （星期一）中午12:00</p>
                 <p>农历 正月二十八 中午十二点整 举办婚礼</p>
-                <p>席设：邢台市南和县南和宾馆</p> -->
+                <p>席设：邢台市南和县南和宾馆</p>
                 <p>地址：邢台南和县和阳大街</p>
                 <image src="../../static/images/we.png" class="img_footer"/>
             </div>
@@ -45,6 +45,9 @@ export default {
     const that = this
     that.isPlay = true
     that.getMusicUrl()
+  },
+  mounted () {
+    this.getShareImage()
   },
   computed: {
     ...mapState(['audio', 'isPlay'])
@@ -117,15 +120,18 @@ export default {
         })
       }
       that.getList()
+    },
+
+    getShareImage () {
+      const that = this
+      const db = wx.cloud.database()
+      const shareImg = db.collection('shareImg')
+      shareImg.get().then(res => {
+        that.imgUrl = res.data[0].img
+      })
     }
   },
   onShareAppMessage (res) {
-    // const that = this
-    // const db = wx.cloud.database()
-    // const shareImg = db.collection('shareImg')
-    // shareImg.get().then(res => {
-    //   that.imgUrl = res.data[0].img
-    // })
     return {
       title: '恭候您的光临',
       path: '/pages/index/main',
@@ -210,7 +216,7 @@ export default {
       animation musicStart 1s linear forwards
   .info
     width 630rpx
-    background rgba(255, 255, 255, 0.75)
+    background rgba(255, 255, 255, 0.25)
     z-index 9
     position fixed
     bottom 40rpx

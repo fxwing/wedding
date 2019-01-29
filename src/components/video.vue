@@ -1,6 +1,6 @@
 <template>
     <div class="section">
-        <video id="myVideo" src="视频资源地址" :danmu-list="danmuList" enable-danmu danmu-btn controls poster="视频封面地址"></video>
+        <video id="myVideo" :src="src" :danmu-list="danmuList" enable-danmu danmu-btn controls poster="cloud://test-fxwing.a897-test-fxwing/image/微信图片_201901251009333.jpg"></video>
         <div class="btn-area">
             <input @blur="bindInputBlur" placeholder="请输入临时弹幕，真实弹幕来自留言" placeholder-style="color:#bbb"/>
             <button @tap="bindSendDanmu">点击生成临时弹幕</button>
@@ -15,22 +15,33 @@ export default {
   data () {
     return {
       inputValue: '',
-      danmuList: []
+      danmuList: [],
+      src: ''
     }
   },
 
   onLoad () {
     const that = this
     that.getMessageList()
+    that.getVideo()
     that.videoContext = wx.createVideoContext('myVideo')
   },
-
+  onHide () {
+    this.close()
+  },
   methods: {
     bindInputBlur (e) {
       let that = this
       that.inputValue = e.mp.detail.value
     },
-
+    getVideo () {
+      const that = this
+      const db = wx.cloud.database()
+      const video = db.collection('video')
+      video.get().then(res => {
+        that.src = res.data[0].video
+      })
+    },
     bindSendDanmu: function () {
       let that = this
       that.videoContext.sendDanmu({
@@ -71,6 +82,7 @@ export default {
 
     close () {
       const that = this
+      that.videoContext.pause()
       that.$emit('closeVideo')
     }
   }
