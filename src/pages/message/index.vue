@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="video-dialog" @tap="toVideo">
-            <image src="../../static/images/timg.jpg"/>
+            <image src="../../static/images/stare.png"/>
         </div>
         <!-- <div class="form-dialog" @tap="lookList">
             <image src="../../static/images/form.png"/>

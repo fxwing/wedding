@@ -31,12 +31,18 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
 					"name": "好友祝福",
 					"pathName": "pages/greet/main",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "留言评论",
+					"pathName": "pages/message/main",
 					"query": ""
 				},
 				{
