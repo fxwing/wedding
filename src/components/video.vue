@@ -4,6 +4,12 @@
         <div class="btn-area">
             <input @blur="bindInputBlur" placeholder="请输入临时弹幕，真实弹幕来自留言" placeholder-style="color:#bbb"/>
             <button @tap="bindSendDanmu">点击生成临时弹幕</button>
+            <div class="text">
+                <p>从大学到婚姻</p>
+                <p>即将要结束三年多的爱情长跑</p>
+                <p>修成正果 步入婚姻的殿堂</p>
+                <p>亲自写了个小程序 恭候各位光临</p>
+            </div>
             <image src="../../static/images/close1.png" @tap="close"/>
         </div>
     </div>
@@ -98,6 +104,15 @@ export default {
         width 100%
         margin-bottom 20rpx
     .btn-area
+        .text
+            color #ff586e
+            font-size 38rpx
+            display flex
+            align-items center
+            flex-direction column
+            justify-content center
+            line-height 50rpx
+            margin-bottom 30rpx
         input
             width 660rpx
             border 1rpx solid #e5e5e5

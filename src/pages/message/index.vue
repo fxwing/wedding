@@ -24,7 +24,7 @@
             <p class="place-end"></p>
         </scroll-view>
         <div class="bottom">
-            <div class="bottom-message" v-if="messageList.length>0">已经收到 {{messageList.length}} 条评论祝福</div>
+            <div class="bottom-message" v-if="messageList.length>0">已经收到 {{messageList.length+10}} 条评论祝福</div>
             <button class="left" lang="zh_CN" open-type="getUserInfo" @getuserinfo="toMessage">来点祝福吧</button>
             <!-- <button class="right" @tap="toForm">我要出席</button>  -->
         </div>
